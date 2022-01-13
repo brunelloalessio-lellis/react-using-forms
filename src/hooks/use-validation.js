@@ -21,6 +21,7 @@ const useValidation = (validateFn) => {
 
   return {
     inputValue: currentValue,
+    valueValid,
     inputInvalid,
     onInputBlur,
     onInputChange,

@@ -5,6 +5,7 @@ const isNotEmpty = (value) => value.trim() !== "";
 const BasicForm = (props) => {
   const {
     inputValue: currentName,
+    valueValid: nameValueValid,
     inputInvalid: nameIsInvalid,
     onInputBlur: onNameBlur,
     onInputChange: onNameChange,
@@ -13,6 +14,7 @@ const BasicForm = (props) => {
 
   const {
     inputValue: currentLastname,
+    valueValid: lastnameValueValid,
     inputInvalid: lastnameIsInvalid,
     onInputBlur: onLastnameBlur,
     onInputChange: onLastnameChange,
@@ -21,19 +23,16 @@ const BasicForm = (props) => {
 
   const {
     inputValue: currentEmail,
+    valueValid: emailValueValid,
     inputInvalid: emailIsInvalid,
     onInputBlur: onEmailBlur,
     onInputChange: onEmailChange,
     reset: resetEmail,
-  } = useValidation(
-    (emailValue) => isNotEmpty(emailValue) && emailValue.includes("@")
-  );
+  } = useValidation((emailValue) => emailValue.includes("@"));
 
-  let formIsValid = false;
+  console.log(nameValueValid, lastnameValueValid, emailValueValid)
 
-  if (!nameIsInvalid && !lastnameIsInvalid && !emailIsInvalid) {
-    formIsValid = true;
-  }
+  const formIsValid = nameValueValid && lastnameValueValid && emailValueValid;
 
   const onFormSubmit = (event) => {
     event.preventDefault();
