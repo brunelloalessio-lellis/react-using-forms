@@ -30,8 +30,6 @@ const BasicForm = (props) => {
     reset: resetEmail,
   } = useValidation((emailValue) => emailValue.includes("@"));
 
-  console.log(nameValueValid, lastnameValueValid, emailValueValid)
-
   const formIsValid = nameValueValid && lastnameValueValid && emailValueValid;
 
   const onFormSubmit = (event) => {

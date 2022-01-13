@@ -1,31 +1,67 @@
-import { useState } from "react";
-const useValidation = (validateFn) => {
-  const [currentValue, setCurrentValue] = useState('');
-  const [isTouched, setIsTouched] = useState(false);
+import { useReducer } from "react";
 
-  const valueValid = validateFn(currentValue);
-  const inputInvalid = !valueValid && isTouched;
+const defaultState = {
+  currentValue: "",
+  isTouched: false,
+};
+
+const useValidationReducer = (state, action) => {
+  if (action.type === "UPDATE_VALUE") {
+    return {
+      ...state,
+      currentValue: action.value,
+    };
+  }
+
+  if (action.type === "RESET") {
+    return defaultState;
+  }
+
+  if (action.type === "TOUCH") {
+    return {
+      ...state,
+      isTouched: true,
+    };
+  }
+
+  return defaultState;
+};
+
+const useValidation = (validateFn) => {
+  const [validationState, validationStateDispatch] = useReducer(
+    useValidationReducer,
+    defaultState
+  );
+
+  const valueValid = validateFn(validationState.currentValue);
+  const inputInvalid = !valueValid && validationState.isTouched;
 
   const onInputChange = (event) => {
-    setCurrentValue(event.target.value);
+    validationStateDispatch({
+      type: "UPDATE_VALUE",
+      value: event.target.value,
+    });
   };
 
   const onInputBlur = () => {
-    setIsTouched(true);
+    validationStateDispatch({
+      type: "TOUCH"
+    });
   };
 
   const reset = () => {
-    setCurrentValue("");
-    setIsTouched(false);
+    validationStateDispatch({
+      type: "RESET"
+    });
   };
 
   return {
-    inputValue: currentValue,
+    inputValue: validationState.currentValue,
     valueValid,
     inputInvalid,
     onInputBlur,
     onInputChange,
-    reset
+    reset,
   };
 };
 
