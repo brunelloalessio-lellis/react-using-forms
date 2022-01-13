@@ -25,9 +25,13 @@ const BasicForm = (props) => {
     onInputBlur: onEmailBlur,
     onInputChange: onEmailChange,
     reset: resetEmail,
-  } = useValidation((emailValue) => emailValue.includes("@"));
+  } = useValidation((emailValue) => emailValue && emailValue.includes("@"));
 
-  const formIsValid = !nameIsInvalid && !lastnameIsInvalid && !emailIsInvalid;
+  let formIsValid = false;
+
+  if (!nameIsInvalid && !lastnameIsInvalid && !emailIsInvalid) {
+    formIsValid = true;
+  }
 
   const onFormSubmit = (event) => {
     event.preventDefault();
@@ -89,7 +93,7 @@ const BasicForm = (props) => {
         {emailIsInvalid && <p style={{ color: "red" }}>Enter a valid email</p>}
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={!formIsValid}>Submit</button>
       </div>
     </form>
   );
