@@ -25,7 +25,9 @@ const BasicForm = (props) => {
     onInputBlur: onEmailBlur,
     onInputChange: onEmailChange,
     reset: resetEmail,
-  } = useValidation((emailValue) => emailValue && emailValue.includes("@"));
+  } = useValidation(
+    (emailValue) => isNotEmpty(emailValue) && emailValue.includes("@")
+  );
 
   let formIsValid = false;
 

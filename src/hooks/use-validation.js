@@ -1,6 +1,6 @@
 import { useState } from "react";
 const useValidation = (validateFn) => {
-  const [currentValue, setCurrentValue] = useState("");
+  const [currentValue, setCurrentValue] = useState('');
   const [isTouched, setIsTouched] = useState(false);
 
   const valueValid = validateFn(currentValue);
