@@ -1,5 +1,7 @@
 import useValidation from "../hooks/use-validation";
 
+const isNotEmpty = (value) => value.trim() !== "";
+
 const BasicForm = (props) => {
   const {
     inputValue: currentName,
@@ -7,7 +9,7 @@ const BasicForm = (props) => {
     onInputBlur: onNameBlur,
     onInputChange: onNameChange,
     reset: resetName,
-  } = useValidation((nameValue) => nameValue.trim() !== "");
+  } = useValidation(isNotEmpty);
 
   const {
     inputValue: currentLastname,
@@ -15,7 +17,7 @@ const BasicForm = (props) => {
     onInputBlur: onLastnameBlur,
     onInputChange: onLastnameChange,
     reset: resetLastname,
-  } = useValidation((lastnameValue) => lastnameValue.trim() !== "");
+  } = useValidation(isNotEmpty);
 
   const {
     inputValue: currentEmail,
