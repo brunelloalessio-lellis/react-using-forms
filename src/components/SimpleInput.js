@@ -22,11 +22,14 @@ const SimpleInput = () => {
   const onFormSubmit = (event) => {
     event.preventDefault();
     setEnteredNameTouched(true);
+    setEnteredEmailTouched(true);
 
     if (!formIsValid) return;
 
     setEnteredName("");
     setEnteredNameTouched(false);
+    setEnteredEmail("");
+    setEnteredEmailTouched(false);
   };
 
   const onInputNameBlur = (event) => {
